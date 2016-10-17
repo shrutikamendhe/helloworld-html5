@@ -22,32 +22,15 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
-/**
- * A simple REST service which is able to say hello to someone using HelloService Please take a look at the web.xml where JAX-RS
- * is enabled And notice the @PathParam which expects the URL to contain /json/David or /xml/Mary
- *
- * @author bsutter@redhat.com
- */
-
 @Path("/")
 public class HelloWorld {
     @Inject
     HelloService helloService;
-
+    
     @POST
-    @Path("/json/{name}")
+    @Path("/environmentvar")
     @Produces("application/json")
-    public String getHelloWorldJSON(@PathParam("name") String name) {
-        System.out.println("name: " + name);
-        return "{\"result\":\"" + helloService.createHelloMessage(name) + "\"}";
+    public String getAllEnvironmentVar() {
+        return "{\"result\":\"" + helloService.getEnvironmentVar() + "\"}";
     }
-
-    @POST
-    @Path("/xml/{name}")
-    @Produces("application/xml")
-    public String getHelloWorldXML(@PathParam("name") String name) {
-        System.out.println("name: " + name);
-        return "<xml><result>" + helloService.createHelloMessage(name) + "</result></xml>";
-    }
-
 }
